@@ -1,46 +1,39 @@
 package org.guilhem.lawnmower.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class MowingSetUp {
 
-    private final Map<String, Integer> fieldSizeMap;
+    private int maxX;
+
+    private int maxY;
 
     private final List<Mower> mowers;
 
     public MowingSetUp() {
-        fieldSizeMap = new HashMap<>();
-        fieldSizeMap.put("x", 0);
-        fieldSizeMap.put("y", 0);
-
         mowers = new ArrayList<>();
     }
 
     public void setMaxX(int maxX) {
-        fieldSizeMap.put("x", maxX);
+        this.maxX = maxX;
     }
 
     public void setMaxY(int maxY) {
-        fieldSizeMap.put("y", maxY);
+        this.maxY = maxY;
     }
 
     public int getMaxX() {
-        return fieldSizeMap.get("x");
+        return maxX;
     }
 
     public int getMaxY() {
-        return fieldSizeMap.get("y");
+        return maxY;
     }
 
     public void addMower(Mower mower) {
         mowers.add(mower);
-    }
-
-    public Map<String, Integer> getFieldSizeMap() {
-        return fieldSizeMap;
     }
 
     public List<Mower> getMowers() {

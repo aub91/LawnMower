@@ -16,18 +16,14 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-
-            <groupId>org.mockito</groupId>
-
-            <artifactId>mockito-all</artifactId>
-
-            <version>1.10.19</version>
-
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>30.1.1-jre</version>
         </dependency>
     </dependencies>
 
     <build>
-        <finalName>Lawn-Mower</finalName>
+        <finalName>lawn-mower</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -35,6 +31,17 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>org.guilhem.lawnmower.Main</mainClass>
+                        </manifest>
+                    </archive>
                 </configuration>
             </plugin>
         </plugins>

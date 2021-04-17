@@ -45,7 +45,7 @@ public class MowingSetUpReader {
         do {
             String[] startSetUp = mowerStartSetUp.split(" ");
             char[] instructions = bufferedReader.readLine().toCharArray();
-            Mower mower = new Mower(Integer.parseInt(startSetUp[0]), Integer.parseInt(startSetUp[1]), startSetUp[2], instructions);
+            Mower mower = new Mower(Integer.parseInt(startSetUp[0]), Integer.parseInt(startSetUp[1]), startSetUp[2].toCharArray()[0], instructions);
 
             setUp.addMower(mower);
 

@@ -2,8 +2,6 @@ package org.guilhem.lawnmower.model;
 
 import org.junit.Test;
 
-import java.util.Collections;
-
 import static org.junit.Assert.*;
 
 public class MowingSetUpTest {
@@ -26,7 +24,7 @@ public class MowingSetUpTest {
     public void shouldAddMower() {
         MowingSetUp setUp = new MowingSetUp();
 
-        Mower mower = new Mower(1, 1, "N", new char[1]);
+        Mower mower = new Mower(1, 1, 'N', new char[1]);
         setUp.addMower(mower);
 
         assertEquals(1, setUp.getMowers().size());

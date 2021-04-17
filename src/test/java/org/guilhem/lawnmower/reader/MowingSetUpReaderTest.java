@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
 
@@ -26,7 +25,7 @@ public class MowingSetUpReaderTest {
 
     private static final int EXPECTED_MOWER1_INIT_Y = 2;
 
-    private static final String EXPECTED_MOWER1_INIT_ORIENTATION = "N";
+    private static final char EXPECTED_MOWER1_INIT_ORIENTATION = 'N';
 
     private static final char[] EXPECTED_MOWER1_INSTRUCTIONS = {'G', 'A', 'G', 'A', 'G','A','G','A', 'A'};
 
@@ -34,7 +33,7 @@ public class MowingSetUpReaderTest {
 
     private static final int EXPECTED_MOWER2_INIT_Y = 3;
 
-    private static final String EXPECTED_MOWER2_INIT_ORIENTATION = "E";
+    private static final char EXPECTED_MOWER2_INIT_ORIENTATION = 'E';
 
     private static final char[] EXPECTED_MOWER2_INSTRUCTIONS = {'A', 'A', 'D', 'A', 'A','D','A','D', 'D', 'A'};
 
