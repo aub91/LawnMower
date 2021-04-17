@@ -6,7 +6,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.NoSuchFileException;
 
 import static org.junit.Assert.*;
 
@@ -55,5 +57,10 @@ public class MowingSetUpReaderTest {
         assertEquals(EXPECTED_MOWER2_INIT_Y, mower2.getINITIAL_Y());
         assertEquals(EXPECTED_MOWER2_INIT_ORIENTATION, mower2.getINITIAL_ORIENTATION());
         assertArrayEquals(EXPECTED_MOWER2_INSTRUCTIONS, mower2.getINSTRUCTIONS());
+    }
+
+    @Test(expected = NoSuchFileException.class)
+    public void shouldThrowExceptionIfFileNotFound() throws IOException{
+        MowingSetUpReader.readInstruction("not a true path");
     }
 }

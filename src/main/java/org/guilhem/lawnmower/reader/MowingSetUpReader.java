@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.logging.Logger;
 
@@ -22,7 +23,7 @@ public class MowingSetUpReader {
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(instructionFilePath), StandardCharsets.UTF_8)){
             extractFieldSize(setUp, reader.readLine());
             extractMowers(setUp, reader);
-        } catch (FileNotFoundException e) {
+        } catch (NoSuchFileException e) {
             LOGGER.severe("Can not find file with instruction");
             throw e;
         } catch (IOException e) {
