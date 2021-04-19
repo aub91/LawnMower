@@ -1,7 +1,7 @@
 package org.guilhem.lawnmower.model;
 
-import com.google.common.primitives.Chars;
 import org.guilhem.lawnmower.exception.UnknownOrientationException;
+import org.guilhem.lawnmower.utils.Chars;
 
 import java.util.StringJoiner;
 import java.util.logging.Logger;

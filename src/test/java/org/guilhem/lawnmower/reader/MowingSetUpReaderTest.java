@@ -3,15 +3,12 @@ package org.guilhem.lawnmower.reader;
 import org.guilhem.lawnmower.model.Mower;
 import org.guilhem.lawnmower.model.MowingSetUp;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
 
 import static org.junit.Assert.*;
 
-@RunWith(MockitoJUnitRunner.class)
 public class MowingSetUpReaderTest {
     private static final String INSTRUCTION_PATH = "D:\\Repo Git\\LawnMower\\src\\test\\resources\\instructions";
 
