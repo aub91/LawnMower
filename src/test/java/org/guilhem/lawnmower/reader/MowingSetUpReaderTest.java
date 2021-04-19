@@ -3,6 +3,7 @@ package org.guilhem.lawnmower.reader;
 import org.guilhem.lawnmower.exception.MowingInstructionReadingException;
 import org.guilhem.lawnmower.exception.OutOfRangeException;
 import org.guilhem.lawnmower.exception.UnknownOrientationException;
+import org.guilhem.lawnmower.exception.WrongMowingInstructionFormat;
 import org.guilhem.lawnmower.model.Mower;
 import org.guilhem.lawnmower.model.MowingSetUp;
 import org.junit.Test;
@@ -23,6 +24,10 @@ public class MowingSetUpReaderTest {
     private static final String INSTRUCTION_WRONG_MOWER_POSITION_PATH = "/instructionsWithWrongMowerPosition";
 
     private static final String INSTRUCTION_WRONG_MOWER_ORIENTATION_PATH = "/instructionsWithWrongMowerOrientation";
+
+    private static final String INSTRUCTION_WRONG_FIELD_DATA_SIZE_PATH = "/instructionsWithWrongFieldDataSize";
+
+    private static final String INSTRUCTION_WRONG_MOWER_DATA_SIZE_PATH = "/instructionsWithWrongMowerDataSize";
 
     private static final int EXPECTED_MAX_X = 5;
 
@@ -89,6 +94,22 @@ public class MowingSetUpReaderTest {
     @Test(expected = UnknownOrientationException.class)
     public void shouldFailOnWrongInitialMowerOrientation() throws MowingInstructionReadingException, IOException, URISyntaxException {
         URL instructionFileURL = this.getClass().getResource(INSTRUCTION_WRONG_MOWER_ORIENTATION_PATH);
+        Path instructionFilePath = Paths.get(instructionFileURL.toURI());
+
+        MowingSetUpReader.readInstruction(instructionFilePath);
+    }
+
+    @Test(expected = WrongMowingInstructionFormat.class)
+    public void shouldFailOnWrongFieldDataSize() throws MowingInstructionReadingException, IOException, URISyntaxException {
+        URL instructionFileURL = this.getClass().getResource(INSTRUCTION_WRONG_FIELD_DATA_SIZE_PATH);
+        Path instructionFilePath = Paths.get(instructionFileURL.toURI());
+
+        MowingSetUpReader.readInstruction(instructionFilePath);
+    }
+
+    @Test(expected = WrongMowingInstructionFormat.class)
+    public void shouldFailOnWrongMowerDataSize() throws MowingInstructionReadingException, IOException, URISyntaxException {
+        URL instructionFileURL = this.getClass().getResource(INSTRUCTION_WRONG_MOWER_DATA_SIZE_PATH);
         Path instructionFilePath = Paths.get(instructionFileURL.toURI());
 
         MowingSetUpReader.readInstruction(instructionFilePath);

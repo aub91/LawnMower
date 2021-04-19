@@ -1,5 +1,8 @@
 package org.guilhem.lawnmower.exception;
 
+/**
+ * Exception thrown when a value of instruction file is out of range.
+ */
 public class OutOfRangeException extends MowingInstructionReadingException {
     public OutOfRangeException() {
     }

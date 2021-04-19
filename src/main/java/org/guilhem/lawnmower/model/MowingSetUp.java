@@ -2,14 +2,26 @@ package org.guilhem.lawnmower.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
+/**
+ * Represent the set up of the mowing.
+ * It is usually read from an instruction file.
+ */
 public class MowingSetUp {
 
+    /**
+     * Maximum x value of the field to maw.
+     */
     private int maxX;
 
+    /**
+     * Maximum y value of the field to maw.
+     */
     private int maxY;
 
+    /**
+     * List of the mowers which have mowing instructions for the field.
+     */
     private final List<Mower> mowers;
 
     public MowingSetUp() {

@@ -1,9 +1,6 @@
 package org.guilhem.lawnmower.reader;
 
-import org.guilhem.lawnmower.exception.MowingInstructionReadingException;
-import org.guilhem.lawnmower.exception.NoMowerException;
-import org.guilhem.lawnmower.exception.OutOfRangeException;
-import org.guilhem.lawnmower.exception.UnknownOrientationException;
+import org.guilhem.lawnmower.exception.*;
 import org.guilhem.lawnmower.model.Mower;
 import org.guilhem.lawnmower.model.MowingSetUp;
 import org.guilhem.lawnmower.utils.Chars;
@@ -12,12 +9,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
-import java.util.logging.Logger;
 
+/**
+ * Class with methods to read mowing instruction from a file.
+ */
 public class MowingSetUpReader {
-    private static final Logger LOGGER = Logger.getLogger(MowingSetUpReader.class.getName());
 
     private static final char[] ORIENTATION_ARRAY = {'N', 'E', 'S', 'W'};
 
@@ -32,8 +29,18 @@ public class MowingSetUpReader {
         return setUp;
     }
 
-    private static void extractFieldSize(MowingSetUp setUp, String fieldSizeData) throws OutOfRangeException {
+    /**
+     * Set MowingSetUp field information according to the given data extracted from instruction file
+     * @param setUp the {@link MowingSetUp} to modify
+     * @param fieldSizeData data about field size
+     * @throws MowingInstructionReadingException  if some data in instruction file are wrong
+     */
+    private static void extractFieldSize(MowingSetUp setUp, String fieldSizeData) throws MowingInstructionReadingException {
         String[] fieldSizeDataSplit = fieldSizeData.split(" ");
+        if(fieldSizeDataSplit.length != 2) {
+            throw new WrongMowingInstructionFormat("Field size line does not have expected data");
+        }
+
         try {
             int maxX = Integer.parseInt(fieldSizeDataSplit[0]);
             if(maxX >= 0) {
@@ -50,20 +57,30 @@ public class MowingSetUpReader {
             if(maxY >= 0) {
                 setUp.setMaxY(maxY);
             } else {
-                throw new OutOfRangeException("x's field size can't be a negative number");
+                throw new OutOfRangeException("y's field size can't be a negative number");
             }
         } catch (NumberFormatException e) {
-            LOGGER.severe("Field size for x dimension can not be parsed as an integer.");
-            throw e;
+            throw new WrongMowingInstructionFormat("Field size for y dimension can not be parsed as an integer.", e);
         }
 
     }
 
+    /**
+     * Set MowingSetUp field information according to the given data extracted from instruction file
+     * @param setUp the {@link MowingSetUp} to modify
+     * @param bufferedReader {@link BufferedReader} from which data are read
+     * @throws MowingInstructionReadingException if some data in instruction file are wrong
+     * @throws IOException if data can not be read from instruction file
+     */
     private static void extractMowers(MowingSetUp setUp, BufferedReader bufferedReader) throws MowingInstructionReadingException, IOException {
         String mowerStartSetUp = bufferedReader.readLine();
+
         if(mowerStartSetUp != null) {
             do {
                 String[] startSetUp = mowerStartSetUp.split(" ");
+                if(startSetUp.length != 3) {
+                    throw new WrongMowingInstructionFormat("Mower initial position line does not have expected data");
+                }
                 char[] instructions = bufferedReader.readLine().toCharArray();
                 int initialX = checkMowerXValue(setUp, startSetUp[0]);
                 int initialY = checkMowerYValue(setUp, startSetUp[1]);

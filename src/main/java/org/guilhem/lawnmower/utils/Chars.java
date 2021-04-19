@@ -1,5 +1,9 @@
 package org.guilhem.lawnmower.utils;
 
+/**
+ * Util class for operation with char array.
+ * Extract of Guava's Chars class.
+ */
 public class Chars {
     public static int indexOf(char[] array, char target) {
         return indexOf(array, target, 0, array.length);

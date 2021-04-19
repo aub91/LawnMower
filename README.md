@@ -5,6 +5,15 @@
 Ce projet a pour but d'implémenter un programme de résolution d'instructions pour tondeuses automatiques 
 selon les spécifications de l'énoncé ci-dessous.
 
+## Build de l'application
+
+Maven doit être installé pour pouvoir construire le programme depuis le projet.
+La commande suivante est à exécuter depuis la racine du projet :
+
+`mvn clean install`
+
+Le jar résultant est nommé **lawn-mower.jar**.
+
 ## Utilisation
 
 Le programme est à lancer avec la commande suivante :
@@ -14,6 +23,8 @@ Le programme est à lancer avec la commande suivante :
 ## Remarques
 
 Le programme supporte en entrée des fichiers encodés en ***UTF-8***.
+
+Dans cette version, deux tondeuses peuvent coexister sur le même emplacement.
 
 ## Enoncé
 

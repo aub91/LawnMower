@@ -1,5 +1,8 @@
 package org.guilhem.lawnmower.exception;
 
+/**
+ * Parent exception for exception occuring while reading mowing instruction file.
+ */
 public class MowingInstructionReadingException extends Exception {
     public MowingInstructionReadingException() {
     }
