@@ -23,6 +23,7 @@ Le programme est à lancer avec la commande suivante :
 ## Remarques
 
 Le programme supporte en entrée des fichiers encodés en ***UTF-8***.
+NB: de part la nature des caractères attendus, d'autres encodages peuvent fonctionner mais à vos risques et périls.
 
 Dans cette version, deux tondeuses peuvent coexister sur le même emplacement.
 
