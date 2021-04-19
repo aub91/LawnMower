@@ -5,12 +5,15 @@ import org.guilhem.lawnmower.model.MowingSetUp;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.nio.file.NoSuchFileException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static org.junit.Assert.*;
 
 public class MowingSetUpReaderTest {
-    private static final String INSTRUCTION_PATH = "D:\\Repo Git\\LawnMower\\src\\test\\resources\\instructions";
+    private static final String INSTRUCTION_PATH = "/instructions";
 
     private static final int EXPECTED_MAX_X = 5;
 
@@ -35,8 +38,11 @@ public class MowingSetUpReaderTest {
     private static final char[] EXPECTED_MOWER2_INSTRUCTIONS = {'A', 'A', 'D', 'A', 'A','D','A','D', 'D', 'A'};
 
     @Test
-    public void shouldExtractMowingCondition() throws IOException {
-        MowingSetUp setUp = MowingSetUpReader.readInstruction(INSTRUCTION_PATH);
+    public void shouldExtractMowingCondition() throws IOException, URISyntaxException {
+        URL instructionFileURL = this.getClass().getResource(INSTRUCTION_PATH);
+        Path instructionFilePath = Paths.get(instructionFileURL.toURI());
+
+        MowingSetUp setUp = MowingSetUpReader.readInstruction(instructionFilePath);
 
         assertEquals(EXPECTED_MAX_X, setUp.getMaxX());
         assertEquals(EXPECTED_MAX_Y, setUp.getMaxY());
@@ -53,10 +59,5 @@ public class MowingSetUpReaderTest {
         assertEquals(EXPECTED_MOWER2_INIT_Y, mower2.getINITIAL_Y());
         assertEquals(EXPECTED_MOWER2_INIT_ORIENTATION, mower2.getINITIAL_ORIENTATION());
         assertArrayEquals(EXPECTED_MOWER2_INSTRUCTIONS, mower2.getINSTRUCTIONS());
-    }
-
-    @Test(expected = NoSuchFileException.class)
-    public void shouldThrowExceptionIfFileNotFound() throws IOException{
-        MowingSetUpReader.readInstruction("not a true path");
     }
 }

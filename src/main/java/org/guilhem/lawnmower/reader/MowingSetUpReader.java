@@ -4,23 +4,21 @@ import org.guilhem.lawnmower.model.Mower;
 import org.guilhem.lawnmower.model.MowingSetUp;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.logging.Logger;
 
 public class MowingSetUpReader {
     private static final Logger LOGGER = Logger.getLogger(MowingSetUpReader.class.getName());
 
-    public static MowingSetUp readInstruction(String instructionFilePath) throws IOException {
+    public static MowingSetUp readInstruction(Path instructionFilePath) throws IOException {
 
         MowingSetUp setUp = new MowingSetUp();
 
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get(instructionFilePath), StandardCharsets.UTF_8)){
+        try (BufferedReader reader = Files.newBufferedReader(instructionFilePath, StandardCharsets.UTF_8)){
             extractFieldSize(setUp, reader.readLine());
             extractMowers(setUp, reader);
         } catch (NoSuchFileException e) {
