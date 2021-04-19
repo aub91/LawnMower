@@ -42,6 +42,12 @@ public class Mower {
         return INSTRUCTIONS;
     }
 
+    public String getInitialPosition() {
+        Position position =
+                new Position(this.INITIAL_X, this.INITIAL_Y, Chars.indexOf(ORIENTATION_ARRAY, this.INITIAL_ORIENTATION));
+        return constructPosition(position);
+    }
+
     public String maw(int maxX, int maxY) throws UnknownOrientationException{
         Position position =
                 new Position(this.INITIAL_X, this.INITIAL_Y, Chars.indexOf(ORIENTATION_ARRAY, this.INITIAL_ORIENTATION));
@@ -62,10 +68,10 @@ public class Mower {
                     break;
             }
         }
-        return constructFinalPosition(position);
+        return constructPosition(position);
     }
 
-    private String constructFinalPosition(Position position) {
+    private String constructPosition(Position position) {
         StringJoiner finalPositionJoiner = new StringJoiner(" ");
         finalPositionJoiner.add(Integer.toString(position.getX()));
         finalPositionJoiner.add(Integer.toString(position.getY()));

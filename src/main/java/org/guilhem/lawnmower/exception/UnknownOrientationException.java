@@ -1,4 +1,4 @@
 package org.guilhem.lawnmower.exception;
 
-public class UnknownOrientationException extends Exception {
+public class UnknownOrientationException extends MowingInstructionReadingException {
 }

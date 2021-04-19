@@ -1,5 +1,8 @@
 package org.guilhem.lawnmower.reader;
 
+import org.guilhem.lawnmower.exception.MowingInstructionReadingException;
+import org.guilhem.lawnmower.exception.OutOfRangeException;
+import org.guilhem.lawnmower.exception.UnknownOrientationException;
 import org.guilhem.lawnmower.model.Mower;
 import org.guilhem.lawnmower.model.MowingSetUp;
 import org.junit.Test;
@@ -14,6 +17,12 @@ import static org.junit.Assert.*;
 
 public class MowingSetUpReaderTest {
     private static final String INSTRUCTION_PATH = "/instructions";
+
+    private static final String INSTRUCTION_WRONG_FIELD_SIZE_PATH = "/instructionsWithWrongFieldSize";
+
+    private static final String INSTRUCTION_WRONG_MOWER_POSITION_PATH = "/instructionsWithWrongMowerPosition";
+
+    private static final String INSTRUCTION_WRONG_MOWER_ORIENTATION_PATH = "/instructionsWithWrongMowerOrientation";
 
     private static final int EXPECTED_MAX_X = 5;
 
@@ -38,7 +47,7 @@ public class MowingSetUpReaderTest {
     private static final char[] EXPECTED_MOWER2_INSTRUCTIONS = {'A', 'A', 'D', 'A', 'A','D','A','D', 'D', 'A'};
 
     @Test
-    public void shouldExtractMowingCondition() throws IOException, URISyntaxException {
+    public void shouldExtractMowingCondition() throws MowingInstructionReadingException, IOException, URISyntaxException {
         URL instructionFileURL = this.getClass().getResource(INSTRUCTION_PATH);
         Path instructionFilePath = Paths.get(instructionFileURL.toURI());
 
@@ -59,5 +68,29 @@ public class MowingSetUpReaderTest {
         assertEquals(EXPECTED_MOWER2_INIT_Y, mower2.getINITIAL_Y());
         assertEquals(EXPECTED_MOWER2_INIT_ORIENTATION, mower2.getINITIAL_ORIENTATION());
         assertArrayEquals(EXPECTED_MOWER2_INSTRUCTIONS, mower2.getINSTRUCTIONS());
+    }
+
+    @Test(expected = OutOfRangeException.class)
+    public void shouldFailOnWrongFieldSize() throws MowingInstructionReadingException, IOException, URISyntaxException {
+        URL instructionFileURL = this.getClass().getResource(INSTRUCTION_WRONG_FIELD_SIZE_PATH);
+        Path instructionFilePath = Paths.get(instructionFileURL.toURI());
+
+        MowingSetUpReader.readInstruction(instructionFilePath);
+    }
+
+    @Test(expected = OutOfRangeException.class)
+    public void shouldFailOnWrongInitialMowerPosition() throws MowingInstructionReadingException, IOException, URISyntaxException {
+        URL instructionFileURL = this.getClass().getResource(INSTRUCTION_WRONG_MOWER_POSITION_PATH);
+        Path instructionFilePath = Paths.get(instructionFileURL.toURI());
+
+        MowingSetUpReader.readInstruction(instructionFilePath);
+    }
+
+    @Test(expected = UnknownOrientationException.class)
+    public void shouldFailOnWrongInitialMowerOrientation() throws MowingInstructionReadingException, IOException, URISyntaxException {
+        URL instructionFileURL = this.getClass().getResource(INSTRUCTION_WRONG_MOWER_ORIENTATION_PATH);
+        Path instructionFilePath = Paths.get(instructionFileURL.toURI());
+
+        MowingSetUpReader.readInstruction(instructionFilePath);
     }
 }

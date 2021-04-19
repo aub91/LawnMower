@@ -1,5 +1,6 @@
 package org.guilhem.lawnmower;
 
+import org.guilhem.lawnmower.exception.MowingInstructionReadingException;
 import org.guilhem.lawnmower.exception.UnknownOrientationException;
 import org.guilhem.lawnmower.model.Mower;
 import org.guilhem.lawnmower.model.MowingSetUp;
@@ -15,7 +16,7 @@ public class Main {
 
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws MowingInstructionReadingException, IOException {
 
         Path instructionFilePath = Paths.get(args[0]);
 
@@ -28,8 +29,10 @@ public class Main {
                 String mowerFinalPosition = mower.maw(setUp.getMaxX(), setUp.getMaxY());
                 System.out.println(mowerFinalPosition);
             } catch (UnknownOrientationException e) {
-                LOGGER.severe("Can not resolve instruction for mower, moving to the next one");
+                System.out.println(mower.getInitialPosition());
+                LOGGER.severe("Can not resolve instruction for mower. Mower stayed to its initial position. Moving to the next mower");
             }
         });
+
     }
 }
